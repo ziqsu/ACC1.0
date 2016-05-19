@@ -33,9 +33,11 @@ public class StoreData extends Thread implements SensorEventListener {
     public static void enqueue(float[] value, String activity){
         try {
             Data data;
+            //if object is empty, we get value and activity from input
             if (objects.isEmpty()) {
-                 data = new Data(System.currentTimeMillis(), value, activity);
+                data = new Data(System.currentTimeMillis(), value, activity);
             } else {
+                //if object is not empty, we take data from object
                 data = objects.take();
                 data.time = System.currentTimeMillis();
                 data.values = value;
@@ -47,7 +49,8 @@ public class StoreData extends Thread implements SensorEventListener {
         }
 
     }
-
+    
+    //this method will create directory, file and store data into the file
     @Override
     public void run(){
         String state;
@@ -103,8 +106,7 @@ public class StoreData extends Thread implements SensorEventListener {
 
     @Override
     public void onSensorChanged(SensorEvent event) {
-        //if we press start, the following boolean will change to ture and start to
-        //collect data,time and activity type
+        //if we press start, we will collect the accelerometer data and activity type
         StoreData.enqueue(event.values, activity);
     }
 
