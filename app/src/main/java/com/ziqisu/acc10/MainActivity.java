@@ -30,10 +30,10 @@ public class MainActivity extends AppCompatActivity {
 
     // start and stop button will change the boolean start to be true and false
     static boolean start = false;
-    //create empty string
+    //set string activityType to empty
     private String activityType = "";
     protected StoreData store = null;
-    //TextView text =(TextView)findViewById(R.id.textView);
+    //set up activitytext, it will take show on the screen which activity is been recording now
     TextView activitytext;
 
 
@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
         SM = (SensorManager)getSystemService(SENSOR_SERVICE);
         //accelerometer sensor
         mySensor= SM.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-
+        //set activitytext and cursor to invisible
         activitytext = (TextView) findViewById(R.id.activitytext);
         activitytext.setVisibility(View.GONE);
         activitytext.setCursorVisible(false);
@@ -72,10 +72,12 @@ public class MainActivity extends AppCompatActivity {
         walkbutton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
+                        //after press start, set start to true it will start store data
                         start = true;
                         store = new StoreData();
                         store.start();
                         SM.registerListener(store, mySensor, SensorManager.SENSOR_DELAY_FASTEST);
+                        //it will show on screen that the accelerometer starts to collect data
                         activitytext.setText("Start Collecting Data");
                         activitytext.setVisibility(View.VISIBLE);
                     }
@@ -91,13 +93,13 @@ public class MainActivity extends AppCompatActivity {
                 new Button.OnClickListener() {
                     public void onClick(View v) {
                         if (store!= null) {
+                            //change activity type and show on the screen activity type
                             store.activity ="Walk";
                             activitytext.setText("Walk");
                             activitytext.setVisibility(View.VISIBLE);
                         }
                     }
-                    //activitytext.setText("jo");
-                    //activitytext.setVisibility(Visibility);
+                    
                 }
         );
     }
@@ -108,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
         walkbutton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
+                        //change activity type and show on the screen activity type
                         store.activity="Run";
                         activitytext.setText("Run");
                         activitytext.setVisibility(View.VISIBLE);
@@ -122,6 +125,7 @@ public class MainActivity extends AppCompatActivity {
         walkbutton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
+                        //change activity type and show on the screen activity type
                         store.activity = "Sit";
                         activitytext.setText("Sit");
                         activitytext.setVisibility(View.VISIBLE);
@@ -137,6 +141,7 @@ public class MainActivity extends AppCompatActivity {
         walkbutton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
+                        //stop collecting data and unregister the sensor manager
                         start = false;
                         SM.unregisterListener(store);
                         activitytext.setText("Stop Collecting data");
@@ -153,6 +158,7 @@ public class MainActivity extends AppCompatActivity {
         climbbutton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
+                        //change activity type and show on the screen activity type
                         store.activity="Climb Stairs";
                         activitytext.setText("Climb Stairs");
                         activitytext.setVisibility(View.VISIBLE);
@@ -168,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
         drivebutton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
+                        //change activity type and show on the screen activity type
                         store.activity="Drive";
                         activitytext.setText("Drive");
                         activitytext.setVisibility(View.VISIBLE);
@@ -183,6 +190,8 @@ public class MainActivity extends AppCompatActivity {
         nonebutton.setOnClickListener(
                 new Button.OnClickListener() {
                     public void onClick(View v) {
+                        //change activity type to none press this button means you cannot find 
+                        //the activity you are doing on the screen
                         store.activity="";
                         activitytext.setText("No Activity");
                         activitytext.setVisibility(View.VISIBLE);
