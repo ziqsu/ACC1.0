@@ -23,13 +23,13 @@ import android.util.Log;
  * Created by ziqisu on 5/18/16.
  */
 public class StoreData extends Thread implements SensorEventListener {
-    //get private linked blocking queue to store data, time and activity type
+    //get private blocking queue to store data, time and activity type
     final static BlockingQueue<Data> queue = new ArrayBlockingQueue<Data>(100);
     final static BlockingQueue<Data> objects = new ArrayBlockingQueue<>(100);
     protected String activity = "";
 
 
-    //create a method to add sensor data x,y,z into queue
+    //create a method to add sensor data x,y,z, time and activity type into queue
     public static void enqueue(float[] value, String activity){
         try {
             Data data;
@@ -83,7 +83,6 @@ public class StoreData extends Thread implements SensorEventListener {
                     sb.append(";");
                     sb.append(data.activity);
                     sb.append("\n");
-                    //Log.d();
                     //write one line of data into file
                     steam.writeBytes(sb.toString());
                     objects.put(data);
